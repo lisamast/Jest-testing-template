@@ -13,22 +13,45 @@ function WorkoutForm({ onSubmit }) {
   // const [reps, setReps] = useState('');
   // const [load, setLoad] = useState('');
   // const [error, setError] = useState('');
+  const [title, setTitle] = useState('');
+  const [reps, setReps] = useState('');
+  const [load, setLoad] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // TODO: Validatie - check of title niet leeg is
     // Als title leeg: setError('Title is required') en stop
-    
+
     // TODO: Maak workout object met:
     // - title (string)
     // - reps (convert naar number met Number() of parseInt())
     // - load (convert naar number)
-    
+
     // TODO: Roep onSubmit aan met workout object
-    
+
     // TODO: Reset form (setTitle(''), setReps(''), setLoad(''))
     // TODO: Clear error (setError(''))
+    if (!title.trim()) {
+      setError('Title is required');
+      return;
+    }
+
+    const workout = {
+      title: title,
+      reps: Number(reps),
+      load: Number(load),
+    };
+
+    if (onSubmit) {
+      onSubmit(workout);
+    }
+
+    setTitle('');
+    setReps('');
+    setLoad('');
+    setError('');
   };
 
   return (
@@ -42,14 +65,38 @@ function WorkoutForm({ onSubmit }) {
       /> */}
 
       {/* TODO: Reps input (type="number") */}
-      
+
       {/* TODO: Load input (type="number") */}
-      
+
       {/* TODO: Submit button */}
       {/* <button type="submit">Add Workout</button> */}
-      
+
       {/* TODO: Toon error als die er is */}
       {/* {error && <p>{error}</p>} */}
+      <input
+        type="text"
+        placeholder="Exercise title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <input
+        type="number"
+        placeholder="Reps"
+        value={reps}
+        onChange={(e) => setReps(e.target.value)}
+      />
+
+      <input
+        type="number"
+        placeholder="Load in kg"
+        value={load}
+        onChange={(e) => setLoad(e.target.value)}
+      />
+
+      <button type="submit">Add Workout</button>
+
+      {error && <p>{error}</p>}
     </form>
   );
 }
