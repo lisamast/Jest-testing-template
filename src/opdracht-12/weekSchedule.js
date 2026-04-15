@@ -17,6 +17,15 @@ export function createWeekSchedule() {
   //   tuesday: [],
   //   ...
   // };
+  return {
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+    sunday: []
+  };
 }
 
 /**
@@ -25,6 +34,9 @@ export function createWeekSchedule() {
 export function addWorkoutToDay(schedule, day, workout) {
   // TODO: Voeg workout toe aan schedule[day] array
   // Hint: schedule[day].push(workout)
+  if (schedule[day]) {
+    schedule[day].push(workout);
+  }
 }
 
 /**
@@ -32,6 +44,7 @@ export function addWorkoutToDay(schedule, day, workout) {
  */
 export function getWorkoutsForDay(schedule, day) {
   // TODO: Return de workouts array voor die dag
+  return schedule[day] || [];
 }
 
 /**
@@ -43,6 +56,13 @@ export function getTotalRepsForWeek(schedule) {
   // 2. Voor elke dag, loop door workouts
   // 3. Tel alle reps op
   // Hint: Object.values(schedule) geeft alle arrays
+  let totalReps = 0;
+  Object.values(schedule).forEach(workouts => {
+    workouts.forEach(workout => {
+      totalReps += workout.reps;
+    });
+  });
+  return totalReps;
 }
 
 /**
@@ -52,4 +72,5 @@ export function hasRestDay(schedule) {
   // TODO: 
   // Check of er minimaal 1 dag is met lege array
   // Hint: Object.values(schedule).some(workouts => workouts.length === 0)
+  return Object.values(schedule).some(workouts => workouts.length === 0);
 }
