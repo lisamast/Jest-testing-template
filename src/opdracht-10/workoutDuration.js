@@ -11,6 +11,7 @@
 export function calculateTotalReps(workouts) {
   // TODO: Tel alle reps bij elkaar op
   // Hint: gebruik reduce()
+  return workouts.reduce((total, workout) => total + workout.reps, 0);
 }
 
 /**
@@ -18,6 +19,7 @@ export function calculateTotalReps(workouts) {
  */
 export function calculateTotalLoad(workouts) {
   // TODO: Tel alle load bij elkaar op
+  return workouts.reduce((total, workout) => total + workout.load, 0);
 }
 
 /**
@@ -31,6 +33,10 @@ export function estimateDuration(workouts) {
   // 3. Deel door 60 (seconden naar minuten)
   // 4. Rond af op 2 decimalen
   // Hint: Math.round(getal * 100) / 100
+  const totalReps = calculateTotalReps(workouts);
+  const durationInSeconds = totalReps * 3;
+  const durationInMinutes = durationInSeconds / 60;
+  return Math.round(durationInMinutes * 100) / 100;
 }
 
 /**
@@ -44,4 +50,5 @@ export function getTotalVolume(workouts) {
   // Squats: 10 reps × 50 kg = 500
   // Push ups: 20 reps × 0 kg = 0
   // Totaal: 500
+  return workouts.reduce((total, workout) => total + (workout.reps * workout.load), 0);
 }
